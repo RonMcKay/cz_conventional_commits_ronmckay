@@ -1,8 +1,7 @@
-from functools import partial
 import os
 import re
 import textwrap
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 from commitizen import defaults
 from commitizen.cz.base import BaseCommitizen
@@ -41,9 +40,29 @@ class RonMcKayConventionalCommits(BaseCommitizen):
         "build": "Build",
         "ci": "CI/CD",
     }
-    bump_pattern: Optional[str] = defaults.bump_pattern
+    change_type_order: Optional[List[str]] = [
+        "BREAKING CHANGE",
+        "Feature",
+        "Fix",
+        "Refactor",
+        "Performance",
+        "Tests",
+        "Documentation",
+        "Build",
+        "CI/CD",
+    ]
+    bump_pattern: Optional[str] = (
+        r"^(?:(BREAKING[\-\ ]CHANGE|feat|fix|refactor|perf)(\(.+\))?(!)?|"
+        r"(docs|style|test|build|ci)(\(.+\))?(!))"
+    )  # noqa: E501
+    # bump_pattern: Optional[
+    #     str
+    # ] = r"^(BREAKING[\-\ ]CHANGE|feat|fix|refactor|perf|docs|style|test|build|ci)(\(.+\))?(!)?|"  # noqa: E501
+    changelog_pattern: Optional[str] = bump_pattern
     bump_map: Optional[Dict[str, str]] = defaults.bump_map
-    commit_parser: Optional[str] = defaults.commit_parser
+    commit_parser: Optional[
+        str
+    ] = r"^(?P<change_type>feat|fix|refactor|perf|BREAKING CHANGE|docs|style|test|build|ci)(?:\((?P<scope>[^()\r\n]*)\)|\()?(?P<breaking>!)?:\s(?P<message>.*)?"  # noqa: E501
 
     def questions(self) -> Questions:
         questions = [
@@ -139,7 +158,10 @@ class RonMcKayConventionalCommits(BaseCommitizen):
                     "Provide additional contextual information about the code changes: "
                     "(press [enter] to skip)\n"
                 ),
-                "filter": partial(textwrap.wrap, width=self.body_max_width),
+                "filter": lambda ans: "\n".join(
+                    textwrap.wrap(ans, width=self.body_max_width)
+                ),
+                # "filter": partial(textwrap.wrap, width=self.body_max_width),
             },
             {
                 "type": "confirm",
