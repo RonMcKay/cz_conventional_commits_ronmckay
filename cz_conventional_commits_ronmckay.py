@@ -15,7 +15,8 @@ def parse_scope(text):
 
 def parse_subject(text):
     if isinstance(text, str):
-        text = text.strip(".").strip().capitalize()
+        text = text.strip(".").strip()
+        text = re.sub(r"([a-zA-Z])", lambda x: x.groups()[0].upper(), text, 1)
 
     return required_validator(text, msg="Subject is required.")
 
