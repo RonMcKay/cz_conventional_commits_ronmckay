@@ -218,7 +218,7 @@ class RonMcKayConventionalCommits(BaseCommitizen):
             r"(?s)"  # To explictly make . match new line
             r"(build|ci|docs|feat|fix|perf|refactor|style|test|chore|revert|bump)"
             r"(\(\S+\))?!?:"  # scope
-            r"( [^\n\r]+)"  # subject
+            r"( [A-Z][^\n\r]+)"  # subject
             r"((\n\n.*)|(\s*))?$"
         )
         return PATTERN
