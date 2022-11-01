@@ -10,14 +10,7 @@ from commitizen.defaults import Questions
 
 
 def parse_scope(text):
-    if not text:
-        return ""
-
-    scope = text.strip().split()
-    if len(scope) == 1:
-        return scope[0]
-
-    return "-".join(scope)
+    return "-".join(text.strip().split())
 
 
 def parse_subject(text):
@@ -55,9 +48,6 @@ class RonMcKayConventionalCommits(BaseCommitizen):
         r"^(?:(BREAKING[\-\ ]CHANGE|feat|fix|refactor|perf)(\(.+\))?(!)?|"
         r"(docs|style|test|build|ci)(\(.+\))?(!))"
     )  # noqa: E501
-    # bump_pattern: Optional[
-    #     str
-    # ] = r"^(BREAKING[\-\ ]CHANGE|feat|fix|refactor|perf|docs|style|test|build|ci)(\(.+\))?(!)?|"  # noqa: E501
     changelog_pattern: Optional[str] = bump_pattern
     bump_map: Optional[Dict[str, str]] = defaults.bump_map
     commit_parser: Optional[
@@ -161,7 +151,6 @@ class RonMcKayConventionalCommits(BaseCommitizen):
                 "filter": lambda ans: "\n".join(
                     textwrap.wrap(ans, width=self.body_max_width)
                 ),
-                # "filter": partial(textwrap.wrap, width=self.body_max_width),
             },
             {
                 "type": "confirm",
