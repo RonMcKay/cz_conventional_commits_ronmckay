@@ -54,6 +54,7 @@ class RonMcKayConventionalCommits(BaseCommitizen):
     commit_parser: Optional[
         str
     ] = r"^(?P<change_type>feat|fix|refactor|perf|BREAKING CHANGE|docs|style|test|build|ci)(?:\((?P<scope>[^()\r\n]*)\)|\()?(?P<breaking>!)?:\s(?P<message>.*)?"  # noqa: E501
+    bump_message = "bump: Version $current_version → $new_version"
 
     def questions(self) -> Questions:
         questions = [
