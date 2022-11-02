@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cz_conventional_commits_ronmckay"
-version = "0.2.3"
+version = "0.3.0"
 description = ""
 authors = ["Philipp Oberdiek <git@oberdiek.net>"]
 license = "MIT"
@@ -34,7 +34,7 @@ line_length = 88
 
 [tool.commitizen]
 name = "cz_conventional_commits_ronmckay"
-version = "0.2.3"
+version = "0.3.0"
 tag_format = "v$version"
 major_version_zero = true
 version_files = [
