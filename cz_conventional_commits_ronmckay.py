@@ -24,26 +24,27 @@ def parse_subject(text):
 class RonMcKayConventionalCommits(BaseCommitizen):
     body_max_width = 80
     change_type_map: Optional[Dict[str, str]] = {
-        "fix": "Fix",
-        "feat": "Feature",
-        "docs": "Documentation",
-        "style": "Style",
-        "refactor": "Refactor",
-        "perf": "Performance",
-        "test": "Tests",
-        "build": "Build",
-        "ci": "CI/CD",
+        "fix": "🐛 Fix",
+        "feat": "🚀 Feature",
+        "BREAKING CHANGE": "❗️ BREAKING CHANGE",
+        "docs": "📔 Documentation",
+        "style": "🕶️ Style",
+        "refactor": "🧹 Refactor",
+        "perf": "🏎️ Performance",
+        "test": "🧪 Tests",
+        "build": "🔨 Build",
+        "ci": "⚙️ CI/CD",
     }
     change_type_order: Optional[List[str]] = [
-        "BREAKING CHANGE",
-        "Feature",
-        "Fix",
-        "Refactor",
-        "Performance",
-        "Tests",
-        "Documentation",
-        "Build",
-        "CI/CD",
+        "❗️ BREAKING CHANGE",
+        "🚀 Feature",
+        "🐛 Fix",
+        "🧹 Refactor",
+        "🏎️ Performance",
+        "🧪 Tests",
+        "📔 Documentation",
+        "🔨 Build",
+        "⚙️ CI/CD",
     ]
     bump_pattern: Optional[str] = (
         r"^(?:(BREAKING[\-\ ]CHANGE|feat|fix|refactor|perf)(\(.+\))?(!)?|"
